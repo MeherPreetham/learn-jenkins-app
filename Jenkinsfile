@@ -27,7 +27,7 @@ pipeline{
             }
             steps{
                 sh '''
-                    test -f learn-jenkins-app/build/index.html
+                    test -f build/index.html
                     npm test
                 '''
             }
