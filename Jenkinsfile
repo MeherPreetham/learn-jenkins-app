@@ -15,8 +15,6 @@ pipeline{
                     npm --version
                     npm ci
                     npm run build
-                    npm install -g serve
-                    serve -s build
                 '''
             }
         }
@@ -33,6 +31,14 @@ pipeline{
                     npm test
                 '''
             }
+        }
+        stage ('deploy') {
+            steps {
+                sh '''
+                        npm install -g serve
+                        serve -s build
+                '''
+                
         }
     }
      post {
