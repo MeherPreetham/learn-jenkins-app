@@ -43,6 +43,8 @@ pipeline{
                 sh '''
                         sudo npm install -g serve
                         serve -s build
+                        sleep 30
+                        ^C
                 '''
             }
         }
