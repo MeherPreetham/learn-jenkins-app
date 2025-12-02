@@ -1,12 +1,13 @@
 pipeline{
-     agent{
-            docker{
-                image 'node:18-alpine'
-                reuseNode true
-            }
-        }
+    agents any
     stages{
-        stage('Build'){
+        stage ('build') {
+            agent{
+                docker{
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
             steps{
                 sh '''
                     ls -la
@@ -18,6 +19,12 @@ pipeline{
             }
         }
         stage ('test') {
+            agent{
+                docker{
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
             steps{
                 sh '''
                     test -f learn-jenkins-app/build/index.html
