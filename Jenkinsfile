@@ -38,13 +38,12 @@ pipeline{
                         npm install -g serve
                         serve -s build
                 '''
-                
+            }
         }
     }
-     post {
-          always{
-               junit 'test-results/junit.xml'
-            }
+    post {
+        always{
+            junit 'test-results/junit.xml'
         }
     }
 }
