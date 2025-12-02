@@ -32,10 +32,10 @@ pipeline{
                 '''
             }
         }
-        stage ('deploy') {
+        stage ('E2E') {
             agent{
                 docker{
-                    image 'node:18-alpine'
+                    image 'mcr.microsoft.com/playwright:v1.57.0-noble'
                     reuseNode true
                 }
             }
@@ -43,8 +43,7 @@ pipeline{
                 sh '''
                         sudo npm install -g serve
                         serve -s build
-                        sleep 30
-                        ^C
+                        npx playwright test
                 '''
             }
         }
