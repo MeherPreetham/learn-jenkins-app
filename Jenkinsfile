@@ -1,6 +1,7 @@
 pipeline{
     agent any
     stages{
+        /*
         stage ('build') {
             agent{
                 docker{
@@ -18,6 +19,7 @@ pipeline{
                 '''
             }
         }
+        */
 
         stage ('run tests'){
             parallel{
