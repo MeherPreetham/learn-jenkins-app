@@ -15,6 +15,8 @@ pipeline{
                     npm --version
                     npm ci
                     npm run build
+                    npm install netlify-cli 
+                    netlify --version
                 '''
             }
         }
