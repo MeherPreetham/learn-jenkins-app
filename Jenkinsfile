@@ -14,6 +14,8 @@ pipeline{
             }
             steps{
                 sh '''
+                    npm ci
+                    npm run build
                     npm install netlify-cli 
                     node_modules/.bin/netlify --version
                     echo "Site ID = $NETLIFY_SITE_ID"
