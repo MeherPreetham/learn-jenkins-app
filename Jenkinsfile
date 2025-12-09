@@ -53,12 +53,11 @@ pipeline{
                         }
                     }
 
-                    environment{
-                        CI_ENVIRONMENT_URL = "https://69385da0621d6e5c86f67649--elaborate-dolphin-0acdce.netlify.app"
-                    }
-
                     steps {
                         sh '''
+                            npm install serve
+                            node_modules/.bin/serve -s build &
+                            sleep 10
                             npx playwright test  --reporter=html
                         '''
                     }
@@ -99,7 +98,7 @@ pipeline{
                     }
 
                     environment{
-                        CI_ENVIRONMENT_URL = "https://69385da0621d6e5c86f67649--elaborate-dolphin-0acdce.netlify.app"
+                        CI_ENVIRONMENT_URL = 'https://elaborate-dolphin-0acdce.netlify.app'
                     }
 
                     steps {
