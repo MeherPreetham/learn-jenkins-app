@@ -54,7 +54,7 @@ pipeline{
                     }
 
                     environment{
-                        CI_ENVIRONMENT_URL = "https://69385da0621d6e5c86f67649--elaborate-dolphin-0acdce.netlify.app/"
+                        CI_ENVIRONMENT_URL = "https://69385da0621d6e5c86f67649--elaborate-dolphin-0acdce.netlify.app"
                     }
 
                     steps {
@@ -99,8 +99,7 @@ pipeline{
                     }
 
                     environment{
-                        NETLIFY_SITE_ID = '83427a98-300e-4097-929a-e2f65a5eef54'
-                        NETLIFY_AUTH_TOKEN = credentials('Netlify-token')
+                        CI_ENVIRONMENT_URL = "https://69385da0621d6e5c86f67649--elaborate-dolphin-0acdce.netlify.app"
                     }
 
                     steps {
