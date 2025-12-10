@@ -71,7 +71,7 @@ pipeline{
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy staging') {
             agent {
                 docker {
                     image 'node:18'
