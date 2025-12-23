@@ -1,7 +1,0 @@
-pipeline{
-  stages{
-    steps {
-      sh 'docker build -t my-playwright .'
-    }
-  }
-}
