@@ -14,7 +14,7 @@ pipeline{
                     args "--entrypoint=''"
                 }
             }
-            envirkonment{
+            environment{
                 AWS_S3_BUCKET = 'learn-jenkins-271220250257'
             }
             steps{
