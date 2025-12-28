@@ -1,2 +1,3 @@
 FROM node:18-alpine
-RUN npm ci && npm run build
+RUN npm ci
+RUN npm run build
