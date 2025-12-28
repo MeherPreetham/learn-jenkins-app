@@ -22,10 +22,10 @@ pipeline{
                     sh '''
                         aws --version
                         aws s3 ls
-                        echo "Hello to S3!" > file.txt
-                        aws s3 cp file.txt s3://$AWS_S3_BUCKET/file.txt
+                        echo "Hello to S3!" > index.html
+                        aws s3 cp file.txt s3://$AWS_S3_BUCKET/index.html
                         aws s3 ls s3://$AWS_S3_BUCKET
-                        aws s3 cp s3://$AWS_S3_BUCKET/file.txt -
+                        aws s3 cp s3://$AWS_S3_BUCKET/index.html -
 
                         '''
                     }
