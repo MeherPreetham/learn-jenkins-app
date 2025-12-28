@@ -20,6 +20,7 @@ pipeline{
                     sh '''
                         aws --version
                         aws s3 ls
+                        echo "Hello to S3!" > file.txt
                         aws s3 cp file.txt s3://learn-jenkins-271220250257/file.txt
                         aws s3 ls s3://learn-jenkins-271220250257
                         aws s3 cp s3://learn-jenkins-271220250257/file.txt -
