@@ -5,12 +5,28 @@ pipeline{
     }
 
     stages {
+
+        stage('Build') {
+            agent {
+                docker {
+                    image 'node:18'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm ci
+                    npm run build
+                '''
+            }
+        }
         
         stage ('Uploading Website to AWS S3'){
                     agent{
                         docker{
                             image 'amazon/aws-cli:2.32.23'
                             args "--entrypoint=''"
+                            reuseNode true
                         }
                     }
                     environment{
