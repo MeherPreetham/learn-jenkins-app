@@ -21,7 +21,7 @@ pipeline{
                         aws --version
                         aws s3 ls
                         aws s3 cp file.txt s3://learn-jenkins-271220250257/file.txt
-                        aws s3 ls
+                        aws s3://learn-jenkins-271220250257 ls
                         '''
                     }
                 }
