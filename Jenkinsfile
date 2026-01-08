@@ -2,6 +2,7 @@ pipeline{
     agent any
     environment{
         AWS_S3_BUCKET = 'learn-jenkins-271220250257'
+        AWS_DEFAULT_REGION = 'ap-south-1'
     }
 
     stages {
