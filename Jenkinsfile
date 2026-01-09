@@ -3,6 +3,7 @@ pipeline{
     environment{
         AWS_S3_BUCKET = 'learn-jenkins-271220250257'
         AWS_DEFAULT_REGION = 'ap-south-1'
+        AWS_ECS_CLUSTER = 'LearnJenkinsApp-Cluster-Prod-08012026'
     }
 
     stages {
@@ -23,6 +24,7 @@ pipeline{
                     sh '''
                         aws --version
                         aws ecs register-task-definition --cli-input-json file://aws/task-definition-prod.json
+                        aws ecs update-service --cluster $AWS_ECS_CLUSTER --service LearnJenkinsApp-TaskDefinition-Prod-service --task-definition LearnJenkinsApp-TaskDefinition-Prod:6
                         '''
                 }
             }
