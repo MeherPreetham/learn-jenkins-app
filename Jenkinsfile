@@ -14,6 +14,7 @@ pipeline{
                     image 'amazon/aws-cli:2.32.23'
                     args "--entrypoint=''"
                     reuseNode true
+                    args '-u root:root'
                 }
             }
             environment{
