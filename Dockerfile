@@ -1,3 +1,2 @@
-FROM node:18-alpine
-RUN npm ci
-RUN npm run build
+FROM nginx:1.27-alpine
+COPY build /usr/share/nginx/html

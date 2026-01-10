@@ -6,6 +6,27 @@ pipeline{
 
     stages {
 
+        stage('Build') {
+            agent {
+                docker {
+                    image 'node:18'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm ci
+                    npm run build
+                '''
+            }
+        }
+
+        stage('Build Docker image') {
+            steps {
+                sh 'docker build -t my-jenkinsapp .'
+            }
+        }
+
         stage ('Deploy to AWS'){
             agent{
                 docker{
@@ -24,20 +45,6 @@ pipeline{
                         aws ecs register-task-definition --cli-input-json file://aws/task-definition-prod.json
                         '''
                 }
-            }
-        }
-        stage('Build') {
-            agent {
-                docker {
-                    image 'node:18'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    npm ci
-                    npm run build
-                '''
             }
         }
     }
