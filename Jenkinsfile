@@ -37,11 +37,12 @@ pipeline {
 
             steps {
                 sh '''
-                    yum update -y && amazon-linux-extras docker
+                    yum update -y && yum install -y docker
+                    service docker start
                     docker build -t myjenkinsapp .
                 '''
             }
-        }        
+        }       
 
         stage('Deploy to AWS') {
             agent {
