@@ -31,14 +31,12 @@ pipeline {
         docker {
             image 'docker:latest'
             reuseNode true
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
+            args '-v root /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
     steps {
         sh '''
-            apk add --no-cache docker
-            service docker start
             docker build -t myjenkinsapp .
         '''
     }
