@@ -27,20 +27,20 @@ pipeline {
         }
 
         stage('Build Docker image') {
-    agent {
-        docker {
-            image 'docker:latest'
-            reuseNode true
-            args '-v root /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+            agent {
+                docker {
+                    image 'docker:latest'
+                    reuseNode true
+                    args '-u root -v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
 
-    steps {
-        sh '''
-            docker build -t myjenkinsapp .
-        '''
-    }
-}       
+            steps {
+                sh '''
+                    docker build -t myjenkinsapp .
+                '''
+            }
+        }
 
         stage('Deploy to AWS') {
             agent {
