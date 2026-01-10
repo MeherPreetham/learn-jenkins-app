@@ -4,6 +4,8 @@ pipeline{
         AWS_S3_BUCKET = 'learn-jenkins-271220250257'
         AWS_DEFAULT_REGION = 'ap-south-1'
         AWS_ECS_CLUSTER = 'LearnJenkinsApp-Cluster-Prod-08012026'
+        AWS_ECS_SERVICE = 'LearnJenkinsApp-TaskDefinition-Prod-service'
+        AWS_ECS_TD = 'LearnJenkinsApp-TaskDefinition-Prod'
     }
 
     stages {
@@ -33,6 +35,7 @@ pipeline{
             }
             steps {
                 sh '''
+                    yum update -y
                     yum install docker -y
                     docker build -t my-jenkinsapp .
                 '''
@@ -47,15 +50,15 @@ pipeline{
                     reuseNode true
                 }
             }
-            steps{
+             steps{
                 withCredentials([usernamePassword(credentialsId: 'aws-s3', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     sh '''
                         aws --version
                         yum install jq -y
                         LATEST_TD_REVISION=$(aws ecs register-task-definition --cli-input-json file://aws/task-definition-prod.json | jq '.taskDefinition.revision')
                         echo $LATEST_TD_REVISION
-                        aws ecs update-service --cluster $AWS_ECS_CLUSTER --service LearnJenkinsApp-TaskDefinition-Prod-service --task-definition LearnJenkinsApp-TaskDefinition-Prod:$LATEST_TD_REVISION
-                        aws ecs wait services-stable --cluster $AWS_ECS_CLUSTER --services LearnJenkinsApp-TaskDefinition-Prod-service
+                        aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition $AWS_ECS_TD:$LATEST_TD_REVISION
+                        aws ecs wait services-stable --cluster $AWS_ECS_CLUSTER --services $AWS_ECS_SERVICE
                         echo "finished deploying"
                         '''
                 }
