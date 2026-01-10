@@ -1,5 +1,6 @@
-pipeline{
+pipeline {
     agent any
+
     environment{
         AWS_S3_BUCKET = 'learn-jenkins-271220250257'
         AWS_DEFAULT_REGION = 'ap-south-1'
@@ -26,31 +27,32 @@ pipeline{
         }
 
         stage('Build Docker image') {
-            agent{
-                docker{
+            agent {
+                docker {
                     image 'amazon/aws-cli'
                     reuseNode true
                     args "-u root -v /var/run/docker.sock:/var/run/docker.sock --entrypoint=''"
                 }
             }
+
             steps {
                 sh '''
-                    yum update -y
-                    yum install docker -y
-                    docker build -t my-jenkinsapp .
+                    amazon-linux-extras install docker
+                    docker build -t myjenkinsapp .
                 '''
             }
-        }
+        }        
 
-        stage ('Deploy to AWS'){
-            agent{
-                docker{
+        stage('Deploy to AWS') {
+            agent {
+                docker {
                     image 'amazon/aws-cli'
-                    args "-u root --entrypoint=''"
                     reuseNode true
+                    args "-u root --entrypoint=''"
                 }
             }
-             steps{
+
+            steps {
                 withCredentials([usernamePassword(credentialsId: 'aws-s3', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     sh '''
                         aws --version
@@ -63,6 +65,6 @@ pipeline{
                         '''
                 }
             }
-        }
+        }        
     }
 }
